@@ -1,4 +1,4 @@
-public inherited sharing abstract class AbstractRequest {
+public inherited sharing abstract class AbstractRequest implements Request {
     
     private HttpRequest request;
 
@@ -28,7 +28,7 @@ public inherited sharing abstract class AbstractRequest {
         return this;
     }
 
-    public AbstractRequest withBlobBody(Blob body) {
+    public AbstractRequest withBody(Blob body) {
 
         if ( body == null ) paramError('Body');
 
@@ -41,7 +41,7 @@ public inherited sharing abstract class AbstractRequest {
 
         if ( timeout == null ) paramError('Timeout');
 
-        this.request.setTimeout(timeout);
+        this.request.setTimeout( Math.abs(timeout) );
 
         return this;
     }
@@ -51,12 +51,15 @@ public inherited sharing abstract class AbstractRequest {
     }
 
     public AbstractRequest withHeader(String key, String value) {
+
+        if( String.isBlank(key) || String.isBlank(value) ) paramError('Header');
+
         return withHeaders(new Map<String, String>{key => value});
     }
 
     public AbstractRequest withHeaders(Map<String, String> headers) {
 
-        if ( headers==null || headers.isEmpty() ) paramError('Headers');
+        if ( headers == null || headers.isEmpty() ) paramError('Headers');
 
         for (String key : headers.keySet()) {
             this.request.setHeader( key, headers.get(key) );
@@ -69,7 +72,7 @@ public inherited sharing abstract class AbstractRequest {
 
         if ( String.isBlank(certDevName) ) paramError('Certificate');
 
-        this.request.setClientCertificateName(certDevName);
+        if( !Test.isRunningTest() ) this.request.setClientCertificateName(certDevName);
         
         return this;
     }
