@@ -32,6 +32,11 @@ public class ZipCodeAddressOutboundServiceTest {
         Assert.areEqual(germanResponse.postalCode, '38110');
         Assert.areEqual(germanResponse.municipality.name, 'Braunschweig, Stadt');
 
+        Assert.areEqual(2, mock.requests.size());
+
+        Assert.isTrue(mock.requests.get(0).getEndpoint().contains('01001000'));
+        Assert.isTrue(mock.requests.get(1).getEndpoint().contains('38110'));
+
     }
 
     @IsTest

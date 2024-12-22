@@ -4,8 +4,8 @@
 @isTest
 public class HttpCalloutResponseMock implements HttpCalloutMock {
 
-    HttpResponse response;
-    private List<HttpRequest> requests = new List<HttpRequest>();
+    public HttpResponse response;
+    public List<HttpRequest> requests = new List<HttpRequest>();
 
     public HttpCalloutResponseMock () {
         this( 200 );
