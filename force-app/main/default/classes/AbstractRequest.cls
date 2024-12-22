@@ -102,7 +102,7 @@ public inherited sharing abstract class AbstractRequest implements Request {
     }
 
     private Boolean isNotSuccess(HttpResponse response) {
-        return response.getStatusCode() > 299 || response.getStatusCode() > 200;
+        return response.getStatusCode() > 299 || response.getStatusCode() < 200;
     }
 
     private void paramError(String paramName) {
