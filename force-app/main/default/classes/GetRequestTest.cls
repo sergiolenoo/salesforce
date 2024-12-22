@@ -1,3 +1,6 @@
+/**
+ * @author @sergiolenoo - Sérgio Murilo Moreira de Oliveira
+ */
 @isTest(isParallel=true)
 public class GetRequestTest {
     
@@ -54,6 +57,13 @@ public class GetRequestTest {
 
         try {
             request.withBody(nullString);
+            Assert.fail('Expected exception was not thrown');
+        } catch (IllegalArgumentException ex) {
+            Assert.isTrue(ex.getMessage().contains('Body'));
+        }
+
+        try {
+            request.withBody(nullBlob);
             Assert.fail('Expected exception was not thrown');
         } catch (IllegalArgumentException ex) {
             Assert.isTrue(ex.getMessage().contains('Body'));

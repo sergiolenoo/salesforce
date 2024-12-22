@@ -1,4 +1,7 @@
-public with sharing class BrazilianZipCodeAddressResponse {
+/**
+ * @author @sergiolenoo - Sérgio Murilo Moreira de Oliveira
+ */
+public class BrazilianZipCodeAddressResponse {
     public String cep;
     public String logradouro;
     public String complemento;

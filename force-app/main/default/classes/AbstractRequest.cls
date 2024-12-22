@@ -1,8 +1,12 @@
+/**
+ * @author @sergiolenoo - Sérgio Murilo Moreira de Oliveira
+ */
 public inherited sharing abstract class AbstractRequest implements Request {
     
     private HttpRequest request;
+    public static final String SUCCESS_MESSAGE = 'Success';
 
-    public AbstractRequest(String method) {
+    protected AbstractRequest(String method) {
         this.request = new HttpRequest();
         this.request.setMethod(method);
     }
@@ -90,11 +94,15 @@ public inherited sharing abstract class AbstractRequest implements Request {
 
         HttpResponse response = this.send();
         
-        if( response.getStatusCode() != 200 ) return null;
+        if( isNotSuccess(response) ) return null;
 
-        if ( String.isBlank( response.getBody() ) ) return null;
+        if ( String.isBlank( response.getBody() ) ) return SUCCESS_MESSAGE;
 
         return JSON.deserialize(response.getBody(), parseClass);
+    }
+
+    private Boolean isNotSuccess(HttpResponse response) {
+        return response.getStatusCode() > 299 || response.getStatusCode() > 200;
     }
 
     private void paramError(String paramName) {

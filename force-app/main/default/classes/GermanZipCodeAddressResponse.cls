@@ -1,3 +1,6 @@
+/**
+ * @author @sergiolenoo - Sérgio Murilo Moreira de Oliveira
+ */
 public class GermanZipCodeAddressResponse {
     public String postalCode;
     public String name;

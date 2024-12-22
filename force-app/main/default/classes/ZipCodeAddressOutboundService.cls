@@ -1,3 +1,6 @@
+/**
+ * @author @sergiolenoo - Sérgio Murilo Moreira de Oliveira
+ */
 public inherited sharing virtual class ZipCodeAddressOutboundService {
 
     public BrazilianZipCodeAddressResponse findBrazilian(String zipCode) {

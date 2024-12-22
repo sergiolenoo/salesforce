@@ -1,22 +1,25 @@
+/**
+ * @author @sergiolenoo - Sérgio Murilo Moreira de Oliveira
+ */
 public interface Request {
     
     HttpRequest getHttpRequest();
 
-    Object withEndPoint(String endpoint);
+    Request withEndPoint(String endpoint);
 
-    Object withBody(String body);
+    Request withBody(String body);
 
-    Object withBody(Blob body);
+    Request withBody(Blob body);
 
-    Object withTimeout(Integer timeout);
+    Request withTimeout(Integer timeout);
 
-    Object withContentType(String contentType);
+    Request withContentType(String contentType);
 
-    Object withHeader(String key, String value);
+    Request withHeader(String key, String value);
 
-    Object withHeaders(Map<String, String> headers);
+    Request withHeaders(Map<String, String> headers);
 
-    Object withClientCertificateName(String certDevName);
+    Request withClientCertificateName(String certDevName);
 
     String getString();
 
