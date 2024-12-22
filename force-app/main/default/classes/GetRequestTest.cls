@@ -5,7 +5,7 @@
 public class GetRequestTest {
     
     @IsTest
-    static void givenValidRequestWhenGetParsedResponseCalledThenRetrieveExpectedResponse() {
+    static void givenValidRequestWhenGetParsedBodyCalledThenRetrieveExpectedResponse() {
 
         String payload = '{ "cep": "01001-000", "logradouro": "Praça da Sé", "complemento": "lado ímpar", "unidade": "", "bairro": "Sé", "localidade": "São Paulo", "uf": "SP", "estado": "São Paulo", "regiao": "Sudeste", "ibge": "3550308", "gia": "1004", "ddd": "11", "siafi": "7107" }';
 
@@ -22,7 +22,7 @@ public class GetRequestTest {
             .withContentType('application/json');
 
 
-        Object response = request.getParsedResponse(BrazilianZipCodeAddressResponse.class);
+        Object response = request.getParsedBody(BrazilianZipCodeAddressResponse.class);
 
         Test.stopTest();
 
@@ -33,14 +33,31 @@ public class GetRequestTest {
     }
 
     @IsTest
-    static void givenInvalidResponseWhenGetParsedResponseCalledThenReturnNull() {
+    static void givenSuccessResponseWithoutBodyWhenGetParsedBodyCalledThenReturnSuccess() {
+        
+        new HttpCalloutResponseMock();
+
+        Test.startTest();
+        
+        String response = (String) new GetRequest()
+            .withEndPoint('http://test.com/endpoint')
+            .getParsedBody(String.class);
+        
+        Test.stopTest();
+
+        Assert.areEqual('Success', response);
+
+    }
+
+    @IsTest
+    static void givenInvalidResponseWhenGetParsedBodyCalledThenReturnNull() {
 
         new HttpCalloutResponseMock(400);
         
         Test.startTest();
         
         Assert.isNull(
-            new GetRequest().getParsedResponse(BrazilianZipCodeAddressResponse.class)
+            new GetRequest().getParsedBody(BrazilianZipCodeAddressResponse.class)
         );
 
         Test.stopTest();

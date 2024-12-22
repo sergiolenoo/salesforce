@@ -90,7 +90,7 @@ public inherited sharing abstract class AbstractRequest implements Request {
         return new Http().send(this.request);
     }
 
-    public Object getParsedResponse(System.Type parseClass) {
+    public Object getParsedBody(System.Type parseClass) {
 
         HttpResponse response = this.send();
         

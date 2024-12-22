@@ -5,14 +5,14 @@ public inherited sharing virtual class ZipCodeAddressOutboundService {
 
     public BrazilianZipCodeAddressResponse findBrazilian(String zipCode) {
 
-        return (BrazilianZipCodeAddressResponse) findAddress(
+        return (BrazilianZipCodeAddressResponse) fetchAddress(
             'BRA', zipCode, BrazilianZipCodeAddressResponse.class
         );
     }
 
     public GermanZipCodeAddressResponse findGerman(String zipCode) {
 
-        List<GermanZipCodeAddressResponse> address = (List<GermanZipCodeAddressResponse>) findAddress(
+        List<GermanZipCodeAddressResponse> address = (List<GermanZipCodeAddressResponse>) fetchAddress(
             'DEU', zipCode, List<GermanZipCodeAddressResponse>.class
         );
 
@@ -21,8 +21,9 @@ public inherited sharing virtual class ZipCodeAddressOutboundService {
         return address[0];
     }
 
+    @TestVisible
     virtual
-    protected Object findAddress( String countryIsoCode
+    protected Object fetchAddress( String countryIsoCode
                                 , String zipCode
                                 , System.Type apexType ) {
         
@@ -35,6 +36,6 @@ public inherited sharing virtual class ZipCodeAddressOutboundService {
         String endPoint = endpointInfo.BaseUrl__c + zipCode;
         endPoint += endpointInfo.AdditionalUrl__c ?? '';
 
-        return new GetRequest().withEndPoint( endPoint ).getParsedResponse( apexType );
+        return new GetRequest().withEndPoint( endPoint ).getParsedBody( apexType );
     }
 }

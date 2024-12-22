@@ -25,5 +25,5 @@ public interface Request {
 
     HttpResponse send();
 
-    Object getParsedResponse(System.Type parseClass);
+    Object getParsedBody(System.Type parseClass);
 }
