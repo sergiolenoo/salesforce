@@ -13,7 +13,7 @@ public class GetRequestTest {
         
         Test.startTest();
         
-        Request request = new GetRequest()
+        OutboundHttpRequest request = new GetRequest()
             .withEndPoint('http://test.com/endpoint')
             .withBody( Blob.valueOf(payload) )
             .withBody(payload)

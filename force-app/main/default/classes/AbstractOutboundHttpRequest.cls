@@ -1,12 +1,12 @@
 /**
  * @author @sergiolenoo - Sérgio Murilo Moreira de Oliveira
  */
-public inherited sharing abstract class AbstractRequest implements Request {
+public inherited sharing abstract class AbstractOutboundHttpRequest implements OutboundHttpRequest {
     
     private HttpRequest request;
     public static final String SUCCESS_MESSAGE = 'Success';
 
-    protected AbstractRequest(String method) {
+    protected AbstractOutboundHttpRequest(String method) {
         this.request = new HttpRequest();
         this.request.setMethod(method);
     }
@@ -15,7 +15,7 @@ public inherited sharing abstract class AbstractRequest implements Request {
         return this.request;
     }
 
-    public AbstractRequest withEndPoint(String endpoint) {
+    public AbstractOutboundHttpRequest withEndPoint(String endpoint) {
 
         if ( String.isBlank(endpoint) ) paramError('Endpoint');
         
@@ -23,7 +23,7 @@ public inherited sharing abstract class AbstractRequest implements Request {
         return this;
     }
 
-    public AbstractRequest withBody(String body) {
+    public AbstractOutboundHttpRequest withBody(String body) {
 
         if ( String.isBlank(body) ) paramError('Body');
 
@@ -32,7 +32,7 @@ public inherited sharing abstract class AbstractRequest implements Request {
         return this;
     }
 
-    public AbstractRequest withBody(Blob body) {
+    public AbstractOutboundHttpRequest withBody(Blob body) {
 
         if ( body == null ) paramError('Body');
 
@@ -41,7 +41,7 @@ public inherited sharing abstract class AbstractRequest implements Request {
         return this;
     }
 
-    public AbstractRequest withTimeout(Integer timeout) {
+    public AbstractOutboundHttpRequest withTimeout(Integer timeout) {
 
         if ( timeout == null ) paramError('Timeout');
 
@@ -50,18 +50,18 @@ public inherited sharing abstract class AbstractRequest implements Request {
         return this;
     }
 
-    public AbstractRequest withContentType(String contentType) {
+    public AbstractOutboundHttpRequest withContentType(String contentType) {
         return withHeader('Content-Type', contentType);
     }
 
-    public AbstractRequest withHeader(String key, String value) {
+    public AbstractOutboundHttpRequest withHeader(String key, String value) {
 
         if( String.isBlank(key) || String.isBlank(value) ) paramError('Header');
 
         return withHeaders(new Map<String, String>{key => value});
     }
 
-    public AbstractRequest withHeaders(Map<String, String> headers) {
+    public AbstractOutboundHttpRequest withHeaders(Map<String, String> headers) {
 
         if ( headers == null || headers.isEmpty() ) paramError('Headers');
 
@@ -72,7 +72,7 @@ public inherited sharing abstract class AbstractRequest implements Request {
         return this;
     }
 
-    public AbstractRequest withClientCertificateName(String certDevName) {
+    public AbstractOutboundHttpRequest withClientCertificateName(String certDevName) {
 
         if ( String.isBlank(certDevName) ) paramError('Certificate');
 
