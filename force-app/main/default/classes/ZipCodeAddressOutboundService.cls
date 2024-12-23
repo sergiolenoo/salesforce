@@ -6,14 +6,14 @@ public inherited sharing virtual class ZipCodeAddressOutboundService {
     public BrazilianZipCodeAddressResponse findBrazilian(String zipCode) {
 
         return (BrazilianZipCodeAddressResponse) fetchAddress(
-            'BRA', zipCode, BrazilianZipCodeAddressResponse.class
+            buildEndpoint('BRA', zipCode), BrazilianZipCodeAddressResponse.class
         );
     }
 
     public GermanZipCodeAddressResponse findGerman(String zipCode) {
 
         List<GermanZipCodeAddressResponse> address = (List<GermanZipCodeAddressResponse>) fetchAddress(
-            'DEU', zipCode, List<GermanZipCodeAddressResponse>.class
+            buildEndpoint('DEU', zipCode), List<GermanZipCodeAddressResponse>.class
         );
 
         if( address == null || address.isEmpty() ) return null;
@@ -23,9 +23,12 @@ public inherited sharing virtual class ZipCodeAddressOutboundService {
 
     @TestVisible
     virtual
-    protected Object fetchAddress( String countryIsoCode
-                                , String zipCode
-                                , System.Type apexType ) {
+    protected Object fetchAddress( String endpoint, System.Type apexType ) {
+        return new GetRequest().withEndPoint( endpoint ).getParsedBody( apexType );
+    }
+
+    @TestVisible
+    private String buildEndpoint( String countryIsoCode, String zipCode ) {
         
         ZipCodeEndpoint__mdt endpointInfo = ZipCodeEndpoint__mdt.getInstance(countryIsoCode);
 
@@ -33,9 +36,6 @@ public inherited sharing virtual class ZipCodeAddressOutboundService {
             System.Label.ZIPSInvalidCountryIso + countryIsoCode +'.'
         );
 
-        String endPoint = endpointInfo.BaseUrl__c + zipCode;
-        endPoint += endpointInfo.AdditionalUrl__c ?? '';
-
-        return new GetRequest().withEndPoint( endPoint ).getParsedBody( apexType );
+        return endpointInfo.BaseUrl__c + zipCode + (endpointInfo.AdditionalUrl__c ?? '');
     }
 }
