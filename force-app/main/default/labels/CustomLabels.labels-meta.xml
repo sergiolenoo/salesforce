@@ -4,7 +4,14 @@
         <fullName>ZIPSInvalidCountryIso</fullName>
         <language>en_US</language>
         <protected>true</protected>
-        <shortDescription>Invalid Country ISO Code</shortDescription>
+        <shortDescription>Invalid Country ISO Code base error message</shortDescription>
         <value>Invalid Country ISO Code, no metadata configuration found for:</value>
+    </labels>
+    <labels>
+        <fullName>ZIPSInvalidZipCode</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Invalid Country ZipCode base error message</shortDescription>
+        <value>Invalid ZipCode: </value>
     </labels>
 </CustomLabels>

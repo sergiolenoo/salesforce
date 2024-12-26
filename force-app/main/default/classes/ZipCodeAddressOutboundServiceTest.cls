@@ -12,6 +12,7 @@ public class ZipCodeAddressOutboundServiceTest {
         Assert.isTrue( service.buildEndpoint('BRA', '01001000').contains('01001000') );
 
         String germanEndpoint = service.buildEndpoint('DEU', '38110');
+        
         Assert.isTrue( germanEndpoint.contains('38110') );
         Assert.isFalse( germanEndpoint.contains('null') );
     }

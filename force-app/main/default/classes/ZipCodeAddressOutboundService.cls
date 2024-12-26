@@ -3,17 +3,27 @@
  */
 public inherited sharing virtual class ZipCodeAddressOutboundService {
 
+    private ZipCodeSanitizer sanitizer;
+
+    public ZipCodeAddressOutboundService() {
+        this.sanitizer = new ZipCodeSanitizer();
+    }
+
     public BrazilianZipCodeAddressResponse findBrazilian(String zipCode) {
 
+        String sanitizedZipCode = this.sanitizer.sanitizeBrazilian(zipCode);
+
         return (BrazilianZipCodeAddressResponse) fetchAddress(
-            buildEndpoint('BRA', zipCode), BrazilianZipCodeAddressResponse.class
+            buildEndpoint('BRA', sanitizedZipCode), BrazilianZipCodeAddressResponse.class
         );
     }
 
     public GermanZipCodeAddressResponse findGerman(String zipCode) {
 
+        String sanitizedZipCode = this.sanitizer.sanitizeGerman(zipCode);
+
         List<GermanZipCodeAddressResponse> address = (List<GermanZipCodeAddressResponse>) fetchAddress(
-            buildEndpoint('DEU', zipCode), List<GermanZipCodeAddressResponse>.class
+            buildEndpoint('DEU', sanitizedZipCode), List<GermanZipCodeAddressResponse>.class
         );
 
         if( address == null || address.isEmpty() ) return null;
